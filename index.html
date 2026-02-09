@@ -763,30 +763,29 @@
       </div>
 
       <div class="contactBox">
-        <div class="contactCard">
-          <h3 style="margin:0 0 8px">E-Mail</h3>
-          <p class="desc" style="margin:0">
-            <b style="color:var(--text)">info@natanholding.de</b><br>
-            <span style="color:var(--muted2)">Antwort typischerweise innerhalb von 48 Stunden.</span>
-          </p>
+        
+<a href="mailto:info@natanholding.de" style="text-decoration:none;color:inherit;">
+  <div class="contactCard" style="cursor:pointer">
+    <h3 style="margin:0 0 8px">E-Mail</h3>
+    <p class="desc" style="margin:0">
+      <b style="color:var(--text)">info@natanholding.de</b><br>
+      <span style="color:var(--muted2)">Antwort typischerweise innerhalb von 48 Stunden.</span>
+    </p>
 
-          <div class="line" style="margin:16px 0"></div>
+    <div class="line" style="margin:16px 0"></div>
 
-          <h3 style="margin:0 0 8px">Nachricht (öffnet E-Mail)</h3>
-          <label for="subject">Betreff</label>
-          <input id="subject" type="text" placeholder="Kooperation / Anfrage / Sonstiges" autocomplete="off" />
-          <label for="message">Nachricht</label>
-          <textarea id="message" placeholder="Kurz beschreiben, worum es geht…"></textarea>
+    <h3 style="margin:0 0 8px">Nachricht</h3>
+    <label>Betreff</label>
+    <input type="text" placeholder="Kooperation / Anfrage / Sonstiges" readonly />
+    <label>Nachricht</label>
+    <textarea placeholder="Kurz beschreiben, worum es geht…" readonly></textarea>
 
-          <div class="ctaRow" style="margin-top:12px">
-            <button class="btn primary" id="sendMail" type="button">E-Mail öffnen</button>
-            <a class="btn" href="mailto:info@natanholding.de">Direkt mailen</a>
-          </div>
-
-          <div class="hint">
-            Hinweis: Das Formular sendet nicht automatisch (kein Backend). Es öffnet deine E-Mail-App mit vorgefülltem Text.
-          </div>
-        </div>
+    <div class="ctaRow" style="margin-top:12px">
+      <div class="btn primary">E-Mail öffnen</div>
+      <div class="btn">Direkt mailen</div>
+    </div>
+  </div>
+</a>
 
         <div class="contactCard">
           <h3 style="margin:0 0 8px">Kurzprofil</h3>
@@ -804,13 +803,7 @@
                 <span>Römerstraße 25, 66111 Saarbrücken (DE)</span>
               </div>
             </div>
-            <div class="stat">
-              <div class="badge">🧾</div>
-              <div>
-                <b>Status</b>
-                <span>GmbH i.G. (Eintragung in Vorbereitung)</span>
-              </div>
-            </div>
+           
           </div>
 
           <div class="hint">
