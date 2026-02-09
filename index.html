@@ -1,134 +1,797 @@
 <!doctype html>
 <html lang="de">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Natan Holding – Internationale Unternehmensgruppe</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Natan Holding – Internationale Unternehmensgruppe</title>
+  <meta name="description" content="Natan Holding – Aufbau, Beteiligungen und Skalierung von Unternehmen. Gruppe: Pflege24-7 (DE) & Opieka24-7 (PL). Kontakt & Impressum." />
 
-<style>
-body{
-margin:0;
-font-family:Arial, Helvetica, sans-serif;
-background:#0b1220;
-color:#fff;
-}
-.container{
-max-width:1100px;
-margin:auto;
-padding:40px 20px;
-}
-nav{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:50px;
-}
-nav a{
-color:#6ea8ff;
-text-decoration:none;
-margin-left:20px;
-font-weight:bold;
-}
-header{
-text-align:center;
-margin-bottom:60px;
-}
-h1{margin:0;font-size:42px}
-.section{margin-top:60px}
-.card{
-background:#121c34;
-padding:25px;
-border-radius:14px;
-margin-bottom:20px;
-}
-a.button{
-display:inline-block;
-background:#6ea8ff;
-padding:12px 20px;
-border-radius:8px;
-color:#000;
-font-weight:bold;
-text-decoration:none;
-margin-top:10px;
-}
-footer{
-margin-top:80px;
-font-size:13px;
-color:#aaa;
-text-align:center;
-}
-</style>
+  <!--
+    PREMIUM ONE-PAGER
+    - Single file (HTML+CSS+JS)
+    - Designed for Holding / Corporate
+    - No broken links / no placeholder alerts
+    - Includes: About, Strategy, Services, Group, Portfolio, Cooperation, Contact, Impressum, Datenschutz
+    - Logo: upload as logo.png in repo root
+  -->
+
+  <style>
+    :root{
+      /* === Brand colors (change after you send logo) === */
+      --bg: #0b1220;
+      --bg2:#070c16;
+      --panel:#0f1a2e;
+      --panel2:#0c1528;
+      --text:#eaf0ff;
+      --muted:#b8c3e6;
+      --line: rgba(255,255,255,.12);
+      --line2: rgba(255,255,255,.08);
+
+      /* Accent colors */
+      --accent:#6ea8ff;
+      --accent2:#7cffa7;
+      --danger:#ff6e8a;
+      --warn:#ffd36e;
+
+      --shadow: 0 22px 70px rgba(0,0,0,.38);
+      --shadow2: 0 10px 30px rgba(0,0,0,.28);
+      --radius:18px;
+      --radius2:26px;
+      --max:1180px;
+
+      /* Typography */
+      --h1: clamp(34px, 4.2vw, 54px);
+      --h2: clamp(20px, 2.1vw, 28px);
+      --h3: 16px;
+      --p: 15px;
+      --small: 12.5px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 12% 8%, rgba(110,168,255,.25), transparent 55%),
+        radial-gradient(900px 600px at 88% 18%, rgba(124,255,167,.18), transparent 60%),
+        radial-gradient(900px 600px at 50% 98%, rgba(110,168,255,.12), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      min-height:100vh;
+    }
+
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:18px 18px 90px}
+    .skip{
+      position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
+    }
+    .skip:focus{left:18px; top:18px; width:auto; height:auto; padding:10px 12px; background:#000; border:1px solid var(--line); border-radius:10px; z-index:999}
+
+    /* Top Nav */
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px;
+      padding:14px 16px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(15,26,46,.55);
+      backdrop-filter: blur(12px);
+      position:sticky;
+      top:14px;
+      z-index:50;
+      box-shadow: var(--shadow2);
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:12px; min-width: 220px;
+    }
+    .brand img{
+      width:40px; height:40px; border-radius:12px; object-fit:contain;
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--line);
+    }
+    .brand .t{display:flex; flex-direction:column; line-height:1.1}
+    .brand .t b{font-size:14px; letter-spacing:.2px}
+    .brand .t span{font-size:12px; color:var(--muted)}
+    .navlinks{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+    .chip{
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+      font-size:13px;
+      transition:.2s ease;
+      user-select:none;
+    }
+    .chip:hover{transform:translateY(-1px); border-color:rgba(110,168,255,.45); color:var(--text)}
+    .chip.active{border-color:rgba(110,168,255,.75); background:rgba(110,168,255,.10); color:var(--text)}
+
+    /* Hero */
+    .hero{
+      margin-top:22px;
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:16px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){
+      .hero{grid-template-columns:1fr}
+      .nav{position:static}
+    }
+
+    .panel{
+      border:1px solid var(--line);
+      border-radius:var(--radius2);
+      background: linear-gradient(180deg, rgba(15,26,46,.86), rgba(15,26,46,.52));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .heroMain{padding:38px 30px}
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      color:var(--muted);
+      font-size:13px;
+      margin-bottom:14px;
+    }
+    .dot{
+      width:9px; height:9px; border-radius:99px;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+    }
+    h1{
+      margin:0 0 12px;
+      font-size:var(--h1);
+      line-height:1.08;
+      letter-spacing:-.8px;
+    }
+    .lead{
+      margin:0 0 20px;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.65;
+      max-width:62ch;
+    }
+
+    .ctaRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+    .btn{
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+      font-weight:700;
+      font-size:14px;
+      display:inline-flex; align-items:center; gap:10px;
+      transition:.2s ease;
+      cursor:pointer;
+    }
+    .btn:hover{transform:translateY(-1px); border-color:rgba(110,168,255,.45)}
+    .btn.primary{
+      border-color:rgba(110,168,255,.70);
+      background:linear-gradient(90deg, rgba(110,168,255,.20), rgba(124,255,167,.14));
+    }
+    .btn.ghost{
+      background:transparent;
+    }
+    .btn small{font-weight:600; color:var(--muted)}
+
+    .heroSide{padding:22px}
+    .card{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,.03);
+      padding:16px;
+    }
+    .stat{
+      display:flex; gap:12px; align-items:flex-start;
+      padding:12px 0;
+      border-top:1px dashed rgba(255,255,255,.14);
+    }
+    .stat:first-child{border-top:none}
+    .badge{
+      width:34px; height:34px; border-radius:12px;
+      display:grid; place-items:center;
+      background:linear-gradient(135deg, rgba(110,168,255,.25), rgba(124,255,167,.14));
+      border:1px solid rgba(255,255,255,.14);
+      flex:0 0 auto;
+    }
+    .stat b{display:block; font-size:13px}
+    .stat span{display:block; color:var(--muted); font-size:12px; line-height:1.4; margin-top:2px}
+
+    /* Sections */
+    .section{margin-top:16px}
+    .head{
+      display:flex; justify-content:space-between; align-items:end; gap:10px;
+      padding:22px 22px 0;
+    }
+    h2{margin:0; font-size:var(--h2); letter-spacing:-.2px}
+    .sub{margin:6px 0 0; color:var(--muted); font-size:13px; line-height:1.6}
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+      padding:16px 22px 22px;
+    }
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
+
+    .tile{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,.03);
+      padding:16px;
+      transition:.2s ease;
+      display:flex; flex-direction:column; gap:10px;
+      min-height:170px;
+    }
+    .tile:hover{transform:translateY(-2px); border-color:rgba(110,168,255,.45)}
+    .top{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .pill{
+      font-size:11px; color:var(--muted);
+      padding:6px 10px; border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      white-space:nowrap;
+    }
+    h3{margin:0; font-size:16px}
+    .desc{margin:0; color:var(--muted); font-size:13px; line-height:1.6}
+    .actions{margin-top:auto; display:flex; gap:10px; flex-wrap:wrap}
+    .actions a{
+      font-weight:800; font-size:13px;
+      color:var(--text);
+      border-bottom:1px solid transparent;
+    }
+    .actions a:hover{border-bottom-color: rgba(255,255,255,.35)}
+    .note{
+      font-size:12px;
+      color:var(--muted);
+      border:1px solid var(--line2);
+      background:rgba(255,255,255,.02);
+      border-radius:14px;
+      padding:12px 14px;
+      margin:0 22px 22px;
+      line-height:1.55;
+    }
+
+    /* Trust Bar */
+    .trust{
+      display:flex; gap:10px; flex-wrap:wrap;
+      padding:0 22px 22px;
+    }
+    .trust .tag{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .tag i{
+      width:8px; height:8px; border-radius:99px;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      display:inline-block;
+    }
+
+    /* Contact form look (no backend) */
+    .contactBox{
+      padding:16px 22px 22px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:14px;
+    }
+    @media (max-width:980px){ .contactBox{grid-template-columns:1fr} }
+    .contactCard{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,.03);
+      padding:16px;
+    }
+    label{display:block; font-size:12px; color:var(--muted); margin:10px 0 6px}
+    input, textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.18);
+      color:var(--text);
+      outline:none;
+      font-size:14px;
+    }
+    textarea{min-height:120px; resize:vertical}
+    .hint{font-size:12px; color:var(--muted); margin-top:10px; line-height:1.5}
+
+    /* Footer */
+    .line{height:1px; background:var(--line); margin:22px 0 0}
+    .footer{
+      padding:18px 18px 0;
+      color:var(--muted);
+      font-size:12.5px;
+      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    }
+    .smallLinks{display:flex; gap:12px; flex-wrap:wrap}
+    .smallLinks a{color:var(--muted)}
+    .smallLinks a:hover{color:var(--text); text-decoration:underline}
+
+    /* Legal text */
+    .legal{
+      padding:16px 22px 22px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.7;
+    }
+    .legal b{color:var(--text)}
+    .legal code{font-family:var(--mono); font-size:12px; color:var(--text)}
+    .legal .box{
+      border:1px solid var(--line2);
+      background:rgba(255,255,255,.02);
+      border-radius:16px;
+      padding:14px 14px;
+      margin:12px 0;
+    }
+
+    /* Subtle reveal */
+    .reveal{opacity:0; transform: translateY(10px); transition: .55s ease}
+    .reveal.on{opacity:1; transform: translateY(0)}
+  </style>
 </head>
 
 <body>
+<a class="skip" href="#top">Zum Inhalt springen</a>
 
-<div class="container">
+<div class="wrap" id="top">
 
-<nav>
-<div><b>Natan Holding</b></div>
-<div>
-<a href="#unternehmen">Unternehmen</a>
-<a href="#tochter">Tochtergesellschaften</a>
-<a href="#kontakt">Kontakt</a>
-<a href="#impressum">Impressum</a>
+  <!-- NAV -->
+  <header class="nav">
+    <a class="brand" href="#top" aria-label="Natan Holding Start">
+      <img src="logo.png" alt="Natan Holding Logo" onerror="this.style.display='none'">
+      <div class="t">
+        <b>Natan Holding</b>
+        <span>Internationale Unternehmensgruppe</span>
+      </div>
+    </a>
+    <nav class="navlinks" aria-label="Navigation">
+      <a class="chip" href="#gruppe">Gruppe</a>
+      <a class="chip" href="#strategie">Strategie</a>
+      <a class="chip" href="#portfolio">Portfolio</a>
+      <a class="chip" href="#kooperation">Kooperation</a>
+      <a class="chip" href="#kontakt">Kontakt</a>
+      <a class="chip" href="#impressum">Impressum</a>
+      <a class="chip" href="#datenschutz">Datenschutz</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <main class="hero">
+    <section class="panel heroMain reveal">
+      <div class="kicker"><span class="dot"></span> Beteiligung • Aufbau • Skalierung</div>
+      <h1>Wir bauen Unternehmen auf – und machen aus guten Strukturen starke Gruppen.</h1>
+      <p class="lead">
+        Natan Holding bündelt Beteiligungen, entwickelt operative Einheiten und schafft skalierbare Strukturen.
+        Fokus: nachhaltige Dienstleistungen, internationale Zusammenarbeit und professionelle Prozesse.
+      </p>
+
+      <div class="ctaRow">
+        <a class="btn primary" href="#portfolio">Portfolio ansehen</a>
+        <a class="btn" href="mailto:info@natanholding.de">E-Mail: info@natanholding.de</a>
+        <a class="btn ghost" href="#kooperation"><small>Für Partner & B2B</small> Kooperation →</a>
+      </div>
+    </section>
+
+    <aside class="panel heroSide reveal">
+      <div class="card">
+        <div class="stat">
+          <div class="badge">🌍</div>
+          <div>
+            <b>Internationaler Fokus</b>
+            <span>EU-übergreifende Struktur, Zusammenarbeit über Ländergrenzen hinweg.</span>
+          </div>
+        </div>
+        <div class="stat">
+          <div class="badge">🏢</div>
+          <div>
+            <b>Holding-Struktur</b>
+            <span>Zentrale Steuerung von Beteiligungen, Marken und operativen Einheiten.</span>
+          </div>
+        </div>
+        <div class="stat">
+          <div class="badge">🤝</div>
+          <div>
+            <b>Kooperationen</b>
+            <span>Partnerschaften mit Teams, Dienstleistern, Experten und Institutionen.</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- GROUP -->
+  <section id="gruppe" class="panel section reveal">
+    <div class="head">
+      <div>
+        <h2>Über die Gruppe</h2>
+        <p class="sub">Klar, seriös, bankfähig – ohne Marketing-Blabla.</p>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="tile">
+        <div class="top"><h3>Mission</h3><span class="pill">Langfristig</span></div>
+        <p class="desc">
+          Aufbau und Entwicklung nachhaltiger Marken und Geschäftsmodelle innerhalb einer skalierbaren Gruppenstruktur.
+        </p>
+      </div>
+
+      <div class="tile">
+        <div class="top"><h3>Wertschöpfung</h3><span class="pill">Operativ</span></div>
+        <p class="desc">
+          Prozesse, Qualität, Compliance und digitale Systeme: Wir professionalisieren operative Einheiten und machen sie skalierbar.
+        </p>
+      </div>
+
+      <div class="tile">
+        <div class="top"><h3>Wachstum</h3><span class="pill">International</span></div>
+        <p class="desc">
+          Expansion über Ländergrenzen hinweg – durch starke Teams, klare Verantwortlichkeiten und robuste Governance.
+        </p>
+      </div>
+    </div>
+
+    <div class="trust">
+      <div class="tag"><i></i> Corporate Governance</div>
+      <div class="tag"><i></i> Prozess- & Qualitätsmanagement</div>
+      <div class="tag"><i></i> Digitale Skalierung</div>
+      <div class="tag"><i></i> EU-Strukturen</div>
+    </div>
+  </section>
+
+  <!-- STRATEGY -->
+  <section id="strategie" class="panel section reveal">
+    <div class="head">
+      <div>
+        <h2>Strategie</h2>
+        <p class="sub">Aufbauen, beteiligen, kaufen, entwickeln – mit Struktur.</p>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="tile">
+        <div class="top"><h3>Company Building</h3><span class="pill">0 → 1</span></div>
+        <p class="desc">
+          Von Idee zu operativem System: Team, Prozesse, Vertrieb, Qualität, digitale Infrastruktur.
+        </p>
+      </div>
+
+      <div class="tile">
+        <div class="top"><h3>Beteiligungen & M&A</h3><span class="pill">Buy & Build</span></div>
+        <p class="desc">
+          Minderheits- oder Mehrheitsbeteiligungen – mit Fokus auf Integration, Synergien und Skalierbarkeit.
+        </p>
+      </div>
+
+      <div class="tile">
+        <div class="top"><h3>Exit / Verkauf</h3><span class="pill">Value</span></div>
+        <p class="desc">
+          Strukturen und Kennzahlen so aufbauen, dass Einheiten investoren- und bankfähig werden – inkl. sauberer Dokumentation.
+        </p>
+      </div>
+    </div>
+
+    <p class="note">
+      Hinweis: Natan Holding agiert als Struktur- und Beteiligungseinheit. Operative Leistungen werden über die jeweiligen Tochtergesellschaften erbracht.
+    </p>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio" class="panel section reveal">
+    <div class="head">
+      <div>
+        <h2>Portfolio & Tochtergesellschaften</h2>
+        <p class="sub">Direkt zu den jeweiligen Websites – ohne Umwege.</p>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="tile">
+        <div class="top"><h3>Pflege24-7 Gruppe GmbH</h3><span class="pill">Deutschland</span></div>
+        <p class="desc">
+          Organisation und Beratung im Bereich häusliche Betreuung in Deutschland – transparent, strukturiert, kundenorientiert.
+        </p>
+        <div class="actions">
+          <a href="https://pflege24-7.de" target="_blank" rel="noopener">Website öffnen →</a>
+          <a href="mailto:anfrage@pflege24-7.de">E-Mail →</a>
+        </div>
+      </div>
+
+      <div class="tile">
+        <div class="top"><h3>Opieka24-7 Grupa sp. z o.o.</h3><span class="pill">Polen</span></div>
+        <p class="desc">
+          Internationale Rekrutierung und Organisation – als Bestandteil der Gruppenstruktur in der EU.
+        </p>
+        <div class="actions">
+          <a href="https://opieka24-7.pl" target="_blank" rel="noopener">Website öffnen →</a>
+          <a href="mailto:kontakt@opieka24-7.pl">E-Mail →</a>
+        </div>
+      </div>
+
+      <div class="tile">
+        <div class="top"><h3>Kooperationen & Partner</h3><span class="pill">B2B</span></div>
+        <p class="desc">
+          Zusammenarbeit mit Dienstleistern, Experten, Recruiting-Partnern, Technologieanbietern, Finanzpartnern und Institutionen.
+        </p>
+        <div class="actions">
+          <a href="#kooperation">Mehr erfahren →</a>
+          <a href="mailto:info@natanholding.de">Kontakt →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COOPERATION -->
+  <section id="kooperation" class="panel section reveal">
+    <div class="head">
+      <div>
+        <h2>Kooperation</h2>
+        <p class="sub">Für Partner, Dienstleister, Banken & strategische Kontakte.</p>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="tile">
+        <div class="top"><h3>Partner-Modelle</h3><span class="pill">B2B</span></div>
+        <p class="desc">
+          Rahmenvereinbarungen, gemeinsame Projekte, Prozess-Integration, Qualitäts- und KPI-Steuerung.
+        </p>
+      </div>
+      <div class="tile">
+        <div class="top"><h3>Due Diligence Ready</h3><span class="pill">Docs</span></div>
+        <p class="desc">
+          Strukturierte Dokumentation, klare Verantwortlichkeiten und saubere Prozesse – Grundlage für Finanzierung & Wachstum.
+        </p>
+      </div>
+      <div class="tile">
+        <div class="top"><h3>Technologie & Skalierung</h3><span class="pill">Systems</span></div>
+        <p class="desc">
+          Automatisierung, CRM, Reporting und Prozesssteuerung – damit Wachstum kontrollierbar bleibt.
+        </p>
+      </div>
+    </div>
+
+    <p class="note">
+      Wenn du Partner bist (B2B): Schreib kurz, was du anbietest und welche Region / Kapazität du abdecken kannst.
+      <b>info@natanholding.de</b>
+    </p>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="kontakt" class="panel section reveal">
+    <div class="head">
+      <div>
+        <h2>Kontakt</h2>
+        <p class="sub">Schnell, direkt, ohne Umwege.</p>
+      </div>
+    </div>
+
+    <div class="contactBox">
+      <div class="contactCard">
+        <h3 style="margin:0 0 8px">E-Mail</h3>
+        <p class="desc" style="margin:0">
+          <b style="color:var(--text)">info@natanholding.de</b><br>
+          <span style="color:var(--muted)">Antwort typischerweise innerhalb von 48 Stunden.</span>
+        </p>
+
+        <div class="line" style="margin:16px 0"></div>
+
+        <h3 style="margin:0 0 8px">Nachricht (öffnet E-Mail)</h3>
+        <label>Betreff</label>
+        <input id="subject" type="text" placeholder="Kooperation / Anfrage / Sonstiges" />
+        <label>Nachricht</label>
+        <textarea id="message" placeholder="Kurz beschreiben, worum es geht…"></textarea>
+
+        <div class="ctaRow" style="margin-top:12px">
+          <button class="btn primary" id="sendMail">E-Mail öffnen</button>
+          <a class="btn" href="mailto:info@natanholding.de">Direkt mailen</a>
+        </div>
+
+        <div class="hint">
+          Hinweis: Das Formular sendet nicht automatisch (kein Backend). Es öffnet deine E-Mail-App mit vorgefülltem Text.
+        </div>
+      </div>
+
+      <div class="contactCard">
+        <h3 style="margin:0 0 8px">Kurzprofil</h3>
+        <p class="desc" style="margin:0">
+          Natan Holding ist eine Holding- und Strukturgesellschaft mit Fokus auf Aufbau, Beteiligungen und Skalierung von Unternehmen.
+        </p>
+
+        <div class="line" style="margin:16px 0"></div>
+
+        <div class="card">
+          <div class="stat">
+            <div class="badge">📍</div>
+            <div>
+              <b>Adresse</b>
+              <span>Römerstraße 25, 66111 Saarbrücken (DE)</span>
+            </div>
+          </div>
+          <div class="stat">
+            <div class="badge">🧾</div>
+            <div>
+              <b>Status</b>
+              <span>GmbH i.G. (Eintragung in Vorbereitung)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hint">
+          Für operative Anfragen bitte direkt an die jeweiligen Gesellschaften wenden:
+          <br>Pflege24-7: <b>anfrage@pflege24-7.de</b>
+          <br>Opieka24-7: <b>kontakt@opieka24-7.pl</b>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPRESSUM -->
+  <section id="impressum" class="panel section reveal">
+    <div class="head">
+      <div>
+        <h2>Impressum</h2>
+        <p class="sub">Angaben gemäß § 5 TMG</p>
+      </div>
+    </div>
+
+    <div class="legal">
+      <div class="box">
+        <b>Natan Holding GmbH i.G.</b><br>
+        Römerstraße 25<br>
+        66111 Saarbrücken<br>
+        Deutschland
+      </div>
+
+      <div class="box">
+        <b>Vertreten durch</b><br>
+        Geschäftsführer: Natan Wojtasczyk
+      </div>
+
+      <div class="box">
+        <b>Kontakt</b><br>
+        E-Mail: <a href="mailto:info@natanholding.de">info@natanholding.de</a>
+      </div>
+
+      <div class="box">
+        <b>Hinweis zum Status „i.G.“</b><br>
+        Die Gesellschaft befindet sich in Gründung. Ein Handelsregistereintrag erfolgt nach Abschluss der Eintragung.
+      </div>
+
+      <div class="box">
+        <b>Haftung für Inhalte</b><br>
+        Wir bemühen uns um Aktualität und Richtigkeit der Inhalte. Eine Haftung für Schäden aus der Nutzung der Inhalte ist – soweit gesetzlich zulässig – ausgeschlossen.
+      </div>
+
+      <div class="box">
+        <b>Haftung für Links</b><br>
+        Unsere Website enthält Links zu externen Websites Dritter. Auf deren Inhalte haben wir keinen Einfluss. Für die Inhalte verlinkter Seiten ist stets der jeweilige Anbieter verantwortlich.
+      </div>
+    </div>
+
+    <div class="line"></div>
+    <div class="footer">
+      <div>© <span id="y"></span> Natan Holding</div>
+      <div class="smallLinks">
+        <a href="#impressum">Impressum</a>
+        <a href="#datenschutz">Datenschutz</a>
+        <a href="#kontakt">Kontakt</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATENSCHUTZ -->
+  <section id="datenschutz" class="panel section reveal">
+    <div class="head">
+      <div>
+        <h2>Datenschutzerklärung</h2>
+        <p class="sub">Informationen nach DSGVO (Kurzfassung, praxisnah).</p>
+      </div>
+    </div>
+
+    <div class="legal">
+      <div class="box">
+        <b>Verantwortlicher</b><br>
+        Natan Holding GmbH i.G., Römerstraße 25, 66111 Saarbrücken, Deutschland<br>
+        E-Mail: <a href="mailto:info@natanholding.de">info@natanholding.de</a>
+      </div>
+
+      <div class="box">
+        <b>Allgemeines</b><br>
+        Wir verarbeiten personenbezogene Daten nur, soweit dies zur Bereitstellung dieser Website, zur Kommunikation oder zur Erfüllung gesetzlicher Pflichten erforderlich ist.
+      </div>
+
+      <div class="box">
+        <b>Server-Logfiles</b><br>
+        Beim Aufruf der Website können durch den Hosting-/Plattformanbieter technische Informationen verarbeitet werden (z. B. IP-Adresse, Datum/Uhrzeit, aufgerufene Seite, User-Agent). Zweck ist der sichere Betrieb der Website (Art. 6 Abs. 1 lit. f DSGVO).
+      </div>
+
+      <div class="box">
+        <b>Kontaktaufnahme per E-Mail</b><br>
+        Wenn du uns per E-Mail kontaktierst, verarbeiten wir die von dir übermittelten Daten zur Bearbeitung deiner Anfrage (Art. 6 Abs. 1 lit. b oder f DSGVO). Die Daten werden gelöscht, sobald sie nicht mehr erforderlich sind und keine Aufbewahrungspflichten entgegenstehen.
+      </div>
+
+      <div class="box">
+        <b>Keine Cookies / Tracking</b><br>
+        Diese Seite verwendet in dieser Version keine Marketing-Cookies, kein Tracking und keine Analyse-Tools.
+      </div>
+
+      <div class="box">
+        <b>Empfänger</b><br>
+        Empfänger können technische Dienstleister sein, die für Hosting/Plattformbetrieb notwendig sind. Eine Weitergabe erfolgt nur, wenn sie erforderlich ist oder eine Rechtsgrundlage besteht.
+      </div>
+
+      <div class="box">
+        <b>Deine Rechte</b><br>
+        Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit sowie Widerspruch gegen bestimmte Verarbeitungen. Außerdem besteht ein Beschwerderecht bei einer Aufsichtsbehörde.
+      </div>
+
+      <div class="box">
+        <b>Stand</b><br>
+        09.02.2026
+      </div>
+
+      <p class="hint">
+        Hinweis: Diese Datenschutzerklärung ist eine solide Basis für eine schlanke Holding-Website ohne Tracking.
+        Wenn du später Tools wie Analytics, Fonts-CDNs, eingebettete Videos oder Newsletter nutzt, muss die Erklärung erweitert werden.
+      </p>
+    </div>
+  </section>
+
 </div>
-</nav>
 
-<header>
-<h1>Natan Holding</h1>
-<p>Internationale Unternehmensgruppe</p>
-</header>
+<script>
+  // Year
+  document.getElementById('y').textContent = new Date().getFullYear();
 
-<section id="unternehmen" class="section">
-<h2>Über die Gruppe</h2>
-<div class="card">
-Natan Holding ist eine internationale Beteiligungs- und Strukturgesellschaft mit Fokus auf den Aufbau,
-die Entwicklung und Skalierung moderner Dienstleistungsunternehmen innerhalb einer wachsenden Unternehmensgruppe.
-</div>
-</section>
+  // Mailto builder
+  const sendBtn = document.getElementById('sendMail');
+  sendBtn?.addEventListener('click', () => {
+    const subject = (document.getElementById('subject').value || 'Anfrage Natan Holding').trim();
+    const message = (document.getElementById('message').value || '').trim();
+    const body = encodeURIComponent(message);
+    const sub = encodeURIComponent(subject);
+    window.location.href = mailto:info@natanholding.de?subject=${sub}&body=${body};
+  });
 
-<section id="tochter" class="section">
-<h2>Tochtergesellschaften</h2>
+  // Reveal on scroll
+  const els = Array.from(document.querySelectorAll('.reveal'));
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries){
+      if (e.isIntersecting) e.target.classList.add('on');
+    }
+  }, { threshold: 0.12 });
+  els.forEach(el => io.observe(el));
 
-<div class="card">
-<b>Pflege24-7 Gruppe GmbH</b><br>
-Organisation und Vermittlung häuslicher Betreuung in Deutschland.<br>
-<a class="button" href="https://pflege24-7.de" target="_blank">Website öffnen</a>
-</div>
+  // Active nav highlight
+  const navLinks = Array.from(document.querySelectorAll('.chip'));
+  const sections = navLinks
+    .map(a => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
 
-<div class="card">
-<b>Opieka24-7 Grupa sp. z o.o.</b><br>
-Internationale Rekrutierung und Organisation von Betreuungskräften.<br>
-<a class="button" href="https://opieka24-7.pl" target="_blank">Website öffnen</a>
-</div>
+  const io2 = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const id = '#' + entry.target.id;
+      navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+    });
+  }, { rootMargin: '-45% 0px -50% 0px', threshold: 0.01 });
 
-</section>
-
-<section id="kontakt" class="section">
-<h2>Kontakt</h2>
-<div class="card">
-E-Mail: info@natanholding.de
-</div>
-</section>
-
-<section id="impressum" class="section">
-<h2>Impressum</h2>
-<div class="card">
-<b>Natan Holding GmbH i.G.</b><br>
-Römerstraße 25<br>
-66111 Saarbrücken<br>
-Deutschland<br><br>
-
-Geschäftsführer: Natan Wojtasczyk<br>
-E-Mail: info@natanholding.de
-</div>
-</section>
-
-<footer>
-© 2026 Natan Holding
-</footer>
-
-</div>
-
+  sections.forEach(s => io2.observe(s));
+</script>
 </body>
 </html>
