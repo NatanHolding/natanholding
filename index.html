@@ -765,7 +765,7 @@
     const message = (document.getElementById('message').value || '').trim();
     const body = encodeURIComponent(message);
     const sub = encodeURIComponent(subject);
-    window.location.href = mailto:info@natanholding.de?subject=${sub}&body=${body};
+    window.location.href = `mailto:info@natanholding.de?subject=${sub}&body=${body}`;
   });
 
   // Reveal on scroll
